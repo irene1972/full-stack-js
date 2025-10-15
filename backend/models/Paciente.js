@@ -16,9 +16,9 @@ const pacienteSchema=mongoose.Schema({
         required:true,
         trim:true
     },
-    fecha_alta:{
+    fecha:{
         type:Date,
-        required:true
+        default:Date.now()
     },
     sintomas:{
         type:String,
