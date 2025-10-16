@@ -3,7 +3,6 @@ import generarJWT from '../helpers/generarJWT.js';
 import generarId from '../helpers/generarId.js';
 
 const registrar=async (req,res)=>{
-    //console.log(req.body);
     const {email}=req.body;
 
     //revisar si un usuario que quiere registrarse tiene el email duplicado
@@ -70,7 +69,6 @@ const autenticar=async(req,res)=>{
 }
 
 const resetPassword=async(req,res)=>{
-    
     const {email}=req.body;
     const usuario=await Veterinario.findOne({email});
     if(!usuario){

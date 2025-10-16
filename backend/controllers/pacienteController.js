@@ -89,4 +89,5 @@ export {
     obtenerPaciente,
     actualizarPaciente,
     eliminarPaciente
+    
 }
