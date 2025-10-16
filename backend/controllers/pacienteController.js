@@ -26,7 +26,7 @@ const obtenerPaciente=async (req,res)=>{
     if(!paciente){
         return res.status(400).json({error:'No existe el paciente'});
     }
-    if(paciente.veterinario._id.toString===req.veterinario._id.toString){
+    if( paciente.veterinario._id.toString() === req.veterinario._id.toString() ){
         res.json(paciente);
     }else{
         return res.status(400).json({error:'Acción no válida'});
@@ -40,7 +40,7 @@ const actualizarPaciente=async (req,res)=>{
     if(!paciente){
         return res.status(400).json({error:'No existe el paciente'});
     }
-    if(paciente.veterinario._id.toString===req.veterinario._id.toString){
+    if( paciente.veterinario._id.toString() === req.veterinario._id.toString() ){
         //actualizar paciente
         paciente.nombre=req.body.nombre || paciente.nombre;
         paciente.propietario=req.body.propietario || paciente.propietario;
@@ -53,6 +53,7 @@ const actualizarPaciente=async (req,res)=>{
             res.json(pacienteActualizado);
         } catch (error) {
             console.log(error);
+            return res.json({error:'No se pudo actualizar'});
         }
 
     }else{
@@ -67,13 +68,15 @@ const eliminarPaciente=async (req,res)=>{
     if(!paciente){
         return res.status(400).json({error:'No existe el paciente'});
     }
-    if(paciente.veterinario._id.toString===req.veterinario._id.toString){
+    if( paciente.veterinario._id.toString() === req.veterinario._id.toString() ){
+        
         //eliminar paciente
         try {
             await paciente.deleteOne();
             res.json({msg:'Paciente eliminado'});
         } catch (error) {
             console.log(error);
+            return res.json({error:'No se pudo eliminar'});
         }
     }else{
         return res.status(400).json({error:'Acción no válida'});
