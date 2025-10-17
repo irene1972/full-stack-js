@@ -1,10 +1,10 @@
 import {imprimirAlerta} from '../funciones.js';
+import {url} from '../variables.js';
 
+(()=>{
 const botonLogin=document.querySelector('#login');
 const contenedorBotones=document.querySelector('.botones');
 const contenedorLogin=document.querySelector('#resul');
-
-const url='http://localhost:4000/api';
 
 botonLogin.addEventListener('click',abrirFormulario);
 
@@ -35,7 +35,7 @@ formulario.onsubmit=(e)=>{
 
 function login(form){
     //console.log(form);
-    const divContenedor=document.querySelector('#form-login');
+    //const divContenedor=document.querySelector('#form-login');
     const inputEmail=form.querySelector('#inputEmail2');
     const inputPassword=form.querySelector('#inputPassword2');
     const email=inputEmail.value.trim();
@@ -46,27 +46,26 @@ function login(form){
         return;
     }
 
-        const datos={email,password};
+    const datos={email,password};
+    
+    fetch(`${url}/veterinarios/login`, {
+    method: "POST",
+    body: JSON.stringify(datos),
+    headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(response => response.json())
+    .then(resultado => {
+        if(resultado.msg){
+            imprimirAlerta(resultado.msg,'error',form);
+            return;
+        }
+        imprimirAlerta('Ha sido autenticado con éxito','exito',form);
+        inputEmail.value='';
+        inputPassword.value='';
+        console.log(resultado);
         
-        fetch(`${url}/veterinarios/login`, {
-        method: "POST",
-        body: JSON.stringify(datos),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
-        })
-        .then(response => response.json())
-        .then(resultado => {
-            if(resultado.msg){
-                imprimirAlerta(resultado.msg,'error',divContenedor);
-                return;
-            }
-            imprimirAlerta('Ha sido autenticado con éxito','exito',divContenedor);
-            inputEmail.value='';
-            inputPassword.value='';
-            
-        })
-        .catch(err => {
-            console.log(err);
-            console.log('ireneeee');
-        });
+    })
+    .catch(err => console.log(err));
 
 }
+})()

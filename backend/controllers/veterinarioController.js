@@ -78,7 +78,7 @@ const resetPassword=async(req,res)=>{
     try {
         usuario.token=generarId();
         await usuario.save();
-        res.json({msg:'Hemos enviado un email con las instrucciones'});
+        res.json({mensaje:'Hemos enviado un email con las instrucciones'});
     } catch (error) {
         console.log(error);
     }

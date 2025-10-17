@@ -1,11 +1,12 @@
 import {imprimirAlerta} from '../funciones.js';
+import {url} from '../variables.js';
+
+(()=>{
 
 const botonReset=document.querySelector('#reset-password');
 const contenedorBotones=document.querySelector('.botones');
 const contenedorReset=document.querySelector('#resul');
 const inputEmail=document.querySelector('#inputEmail1');
-
-const url='http://localhost:4000/api';
 
 botonReset.addEventListener('click',abrirFormulario);
 
@@ -49,7 +50,11 @@ const email=inputEmail.value;
     })
     .then(response => response.json())
     .then(resultado => {
-        imprimirAlerta(resultado.msg,'exito',divContenedor);
+        if(resultado.msg){
+            imprimirAlerta(resultado.msg,'error',divContenedor);
+            return;
+        }
+        imprimirAlerta(resultado.mensaje,'exito',divContenedor);
         inputEmail.value='';
         
     })
@@ -57,4 +62,4 @@ const email=inputEmail.value;
 
 }
 
-
+})()

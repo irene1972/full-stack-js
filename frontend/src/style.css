@@ -25,7 +25,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  place-items:initial;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -41,7 +41,10 @@ h1 {
   padding: 2rem;
   text-align: center;
 }
-
+.botones{
+  display: block;
+  place-items:center;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -82,10 +85,14 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 .error{
+  margin:1rem;
+  padding: 1rem;
   background-color: darksalmon;
   color:white;
 }
 .exito{
+  margin:1rem;
+  padding: 1rem;
   background-color: rgb(52, 182, 19);
   color:white;
 }
