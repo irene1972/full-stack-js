@@ -1,5 +1,4 @@
 import {imprimirAlerta} from '../funciones.js';
-import {url} from '../variables.js';
 
 (()=>{
 
@@ -43,7 +42,7 @@ const email=inputEmail.value;
 
     const datos={email};
     
-    fetch(`${url}/veterinarios/reset-password`, {
+    fetch(`${import.meta.env.VITE_URL_API}/veterinarios/reset-password`, {
     method: "POST",
     body: JSON.stringify(datos),
     headers: {"Content-type": "application/json; charset=UTF-8"}

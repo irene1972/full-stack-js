@@ -1,9 +1,11 @@
 import Veterinario from '../models/Veterinario.js';
 import generarJWT from '../helpers/generarJWT.js';
 import generarId from '../helpers/generarId.js';
+import emailRegistro from '../helpers/emailRegistro.js';
+import emailResetPass from '../helpers/emailResetPassword.js';
 
 const registrar=async (req,res)=>{
-    const {email}=req.body;
+    const {email,nombre}=req.body;
 
     //revisar si un usuario que quiere registrarse tiene el email duplicado
     const existeUsuario=await Veterinario.findOne({email});
@@ -16,6 +18,10 @@ const registrar=async (req,res)=>{
         //guardar un nuevo veterinario
         const veterinario=new Veterinario(req.body);
         const veterinarioGuardado=await veterinario.save();
+
+        //enviar el email
+        emailRegistro({email,nombre,token:veterinarioGuardado.token});
+
         res.json(veterinarioGuardado);
     } catch (error) {
         console.log(error);
@@ -40,7 +46,7 @@ const confirmar=async(req,res)=>{
         usuarioConfirmar.token=null;
         usuarioConfirmar.confirmado=true;
         await usuarioConfirmar.save();
-        res.json({msg:'Usuario confirmado correctamente'});
+        res.json({mensaje:'Usuario confirmado correctamente'});
     } catch (error) {
         console.log(error);
     }
@@ -69,6 +75,7 @@ const autenticar=async(req,res)=>{
 }
 
 const resetPassword=async(req,res)=>{
+    
     const {email}=req.body;
     const usuario=await Veterinario.findOne({email});
     if(!usuario){
@@ -78,6 +85,13 @@ const resetPassword=async(req,res)=>{
     try {
         usuario.token=generarId();
         await usuario.save();
+
+        //enviar email
+        //recuperamos datos del veterinario para enviar el email
+        const usuarioVet=await Veterinario.findOne({email});
+        const {nombre,token}=usuarioVet;
+        emailResetPass({email,nombre,token});
+
         res.json({mensaje:'Hemos enviado un email con las instrucciones'});
     } catch (error) {
         console.log(error);
@@ -98,6 +112,7 @@ const comprobarToken=async (req,res)=>{
 }
 
 const nuevoPassword=async (req,res)=>{
+    console.log('ireneeee');
     const {token}=req.params;
     const {password}=req.body;
     const usuario=await Veterinario.findOne({token});
@@ -109,7 +124,7 @@ const nuevoPassword=async (req,res)=>{
         usuario.token=null;
         usuario.password=password;
         await usuario.save();
-        return res.json({msg:'Password modificado correctamente'});
+        return res.json({mensaje:'Password modificado correctamente'});
     } catch (error) {
         console.log(error);
     }

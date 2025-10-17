@@ -1,5 +1,4 @@
 import {imprimirAlerta} from '../funciones.js';
-import {url} from '../variables.js';
 
 (()=>{
 const botonLogin=document.querySelector('#login');
@@ -48,7 +47,7 @@ function login(form){
 
     const datos={email,password};
     
-    fetch(`${url}/veterinarios/login`, {
+    fetch(`${import.meta.env.VITE_URL_API}/veterinarios/login`, {
     method: "POST",
     body: JSON.stringify(datos),
     headers: {"Content-type": "application/json; charset=UTF-8"}

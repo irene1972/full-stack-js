@@ -1,5 +1,4 @@
 import {imprimirAlerta} from '../funciones.js';
-import {url} from '../variables.js';
 
 (()=>{
 
@@ -34,6 +33,10 @@ function abrirFormulario(){
             <label for="inputPassword3" class="form-label">Password</label>
             <input type="password" class="form-control" id="inputPassword3">
         </div>
+        <div class="mb-3">
+            <label for="inputPassword33" class="form-label">Repita Password</label>
+            <input type="password" class="form-control" id="inputPassword33">
+        </div>
         <button type="submit" class="btn btn-primary">Registrarse</button>
     </form>
     `;
@@ -52,20 +55,26 @@ function registrar(form){
     const inputTelefono=form.querySelector('#inputTelefono3');
     const inputWeb=form.querySelector('#inputWeb3');
     const inputPassword=form.querySelector('#inputPassword3');
+    const inputRepitaPassword=form.querySelector('#inputPassword33');
 
     const nombre=inputNombre.value.trim();
     const email=inputEmail.value.trim();
     const telefono=inputTelefono.value.trim();
     const web=inputWeb.value.trim();
     const password=inputPassword.value.trim();
+    const repitaPassword=inputRepitaPassword.value.trim();
 
+    if(password !== repitaPassword){
+        imprimirAlerta('Los dos passwords deben ser iguales','error',form);
+        return;
+    }
     if(!nombre || !email || !password){
         imprimirAlerta('Los campos NOMBRE, EMAIL y PASSWORD son obligatorios','error',form);
         return;
     }
     const datos={nombre,email,telefono,web,password};
     
-    fetch(`${url}/veterinarios`, {
+    fetch(`${import.meta.env.VITE_URL_API}/veterinarios`, {
     method: "POST",
     body: JSON.stringify(datos),
     headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -76,7 +85,7 @@ function registrar(form){
             imprimirAlerta(resultado.msg,'error',form);
             return;
         }
-        imprimirAlerta('Ha sido registrado con éxito, revisa tu email','exito',form);
+        imprimirAlerta('Ha sido registrado con éxito, revise su email','exito',form);
         inputNombre.value='';
         inputEmail.value='';
         inputTelefono.value='';
