@@ -53,11 +53,11 @@ const actualizarPaciente=async (req,res)=>{
             res.json(pacienteActualizado);
         } catch (error) {
             console.log(error);
-            return res.json({error:'No se pudo actualizar'});
+            return res.json({msg:'No se pudo actualizar'});
         }
 
     }else{
-        return res.status(400).json({error:'Acción no válida'});
+        return res.status(400).json({msg:'Acción no válida'});
     }
 }
 
@@ -73,13 +73,13 @@ const eliminarPaciente=async (req,res)=>{
         //eliminar paciente
         try {
             await paciente.deleteOne();
-            res.json({msg:'Paciente eliminado'});
+            res.json({mensaje:'Paciente eliminado'});
         } catch (error) {
             console.log(error);
-            return res.json({error:'No se pudo eliminar'});
+            return res.json({msg:'No se pudo eliminar'});
         }
     }else{
-        return res.status(400).json({error:'Acción no válida'});
+        return res.status(400).json({msg:'Acción no válida'});
     }
 }
 

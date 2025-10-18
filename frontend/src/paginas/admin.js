@@ -84,14 +84,16 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha} from '../funciones.js';
                 imprimirAlerta(resultado.msg,'error',formulario);
                 return;
             }
-            imprimirAlerta('Ha sido guardado con éxito','exito',formulario);
+            imprimirAlerta('Ha sido guardado correctamente','exito',formulario);
             inputNombre.value='';
             inputPropietario.value='';
             inputEmail.value='';
             inputFecha.value='';
             inputSintomas.value='';
             
-            console.log(resultado);
+            setTimeout(()=>{
+                window.location.replace(`${import.meta.env.VITE_URL_FRONTEND}/admin.html`);
+            },3000);
             
         })
         .catch(err => console.log(err));
@@ -120,17 +122,19 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha} from '../funciones.js';
             if(data.length===0){
                 const divPacientes=document.querySelector('div.pacientes');
                 divPacientes.innerHTML=`<h2>No hay pacientes</h2>`;
+                return;
             }
             const divPacientes=document.querySelector('div.pacientes');
             const h2=document.createElement('h2');
             h2.textContent='Listado de pacientes';
-            divPacientes.append(h2);
+            divPacientes.prepend(h2);
 
             const lista=document.querySelector('ul.pacientes');
             
             lista.innerHTML='';
             
             let botonEditar='';
+            let botonEliminar='';
 
             data.forEach(paciente=>{
                 const {nombre,propietario,email,fecha,sintomas,_id}=paciente;
@@ -147,8 +151,9 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha} from '../funciones.js';
                                     </li>
                                     `;
                 botonEditar=document.querySelector(`button.editar`);
-                botonEditar.onclick=(e)=>console.log(e.target);
-                //botonEditar.onclick=(e)=>{editarPaciente(e);}
+                botonEditar.onclick=(e)=>{editarPaciente(e);}
+                botonEliminar=document.querySelector(`button.eliminar`);
+                botonEliminar.onclick=(e)=>{eliminarPaciente(e);}
                 
             });
             
@@ -201,9 +206,6 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha} from '../funciones.js';
             fecha,
             sintomas
         };
-        console.log(`${import.meta.env.VITE_URL_API}/pacientes/${id}`);
-        console.log(pacienteEditado);
-        console.log(token);
         
         fetch(`${import.meta.env.VITE_URL_API}/pacientes/${id}`, {
         method: "PUT",
@@ -226,7 +228,7 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha} from '../funciones.js';
             inputFecha.value='';
             inputSintomas.value='';
             
-            console.log(resultado);
+            //console.log(resultado);
 
             obtenerPacientes={};
             
@@ -235,7 +237,38 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha} from '../funciones.js';
 
     }
     function eliminarPaciente(e){
-        console.log(e.target);
+        const id=e.target.id;
+        const token = autenticarUsuario();
+        
+        fetch(`${import.meta.env.VITE_URL_API}/pacientes/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+        })
+        .then(response => response.json())
+        .then(resultado => {
+            if(resultado.msg){
+                imprimirAlerta(resultado.msg,'error',formulario);
+                return;
+            }
+            imprimirAlerta(resultado.mensaje,'exito',formulario);
+            inputNombre.value='';
+            inputPropietario.value='';
+            inputEmail.value='';
+            inputFecha.value='';
+            inputSintomas.value='';
+
+            obtenerPacientes={};
+
+            setTimeout(()=>{
+                window.location.replace(`${import.meta.env.VITE_URL_FRONTEND}/admin.html`);
+            },3000);
+            
+            
+        })
+        .catch(err => console.log(err));
     }
     function actualizarNombrePacienteEditado(e){
         obtenerPacientes.nombre=e.target.value;

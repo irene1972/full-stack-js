@@ -174,3 +174,6 @@ ul.pacientes{
   margin-left: 1rem;
   margin-right: 1rem;
 }
+div.pacientes h2{
+  padding-left: 3rem;
+}
