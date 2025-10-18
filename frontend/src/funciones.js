@@ -20,3 +20,9 @@ export function imprimirAlerta(mensaje,tipo,divContenedor){
     },3000);
 
 }
+
+export function autenticarUsuario(){
+    const token=localStorage.getItem('token');
+    if(!token) return;
+    return token;
+}

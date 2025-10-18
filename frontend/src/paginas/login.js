@@ -1,4 +1,4 @@
-import {imprimirAlerta} from '../funciones.js';
+import {imprimirAlerta,autenticarUsuario} from '../funciones.js';
 
 (()=>{
 const botonLogin=document.querySelector('#login');
@@ -58,13 +58,45 @@ function login(form){
             imprimirAlerta(resultado.msg,'error',form);
             return;
         }
-        imprimirAlerta('Ha sido autenticado con éxito','exito',form);
+        //imprimirAlerta('Ha sido autenticado con éxito','exito',form);
         inputEmail.value='';
         inputPassword.value='';
-        console.log(resultado);
+        //console.log(resultado);
+        localStorage.setItem('token',resultado.token);
+
+        //consultar datos perfil si estás autenticado
+        traerPerfil();
         
     })
     .catch(err => console.log(err));
 
 }
+
+function traerPerfil(){
+    const token = autenticarUsuario();
+    console.log(token);
+    if(!token) return;
+    
+    fetch(`${import.meta.env.VITE_URL_API}/veterinarios/perfil`, {
+    method: 'GET',
+    headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if(data.msg){
+            imprimirAlerta(data.msg,'error',contenedorLogin);
+            return;
+        }
+        //ir a la página de perfil
+        window.location.replace(`${import.meta.env.VITE_URL_FRONTEND}/admin.html`);
+    })
+    .catch(error => console.error('Error:', error));
+
+    
+}
+
 })()

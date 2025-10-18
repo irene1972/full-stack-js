@@ -15,7 +15,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  /*color: #646cff;*/
   text-decoration: inherit;
 }
 a:hover {
@@ -30,9 +30,37 @@ body {
   min-height: 100vh;*/
 }
 
+header{
+  padding: 1rem;
+  background-color: #646cff;
+  color:white;
+  width: 80rem;
+  height: 7rem;
+}
+a.header{
+  color:rgb(209, 194, 194);
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 0.5rem;
+}
+span.header{
+  color:white;
+}
+
+div.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+h1.header{
+  font-size: xx-large;
+}
 h1 {
-  font-size: 3.2em;
+  font-size: 1.2em;
   line-height: 1.1;
+  padding-left: 1rem;
+  padding-top: 2rem;
+  display: inline-block;
 }
 
 #app {
@@ -111,4 +139,35 @@ button:focus-visible {
 div#resul{
   width: 60rem;
   
+}
+p.footer{
+  font-weight: bold;
+}
+span.footer{
+  color:#646cff;
+}
+.container-flex{
+  display: flex;
+}
+.formulario{
+  width: 30rem;
+  padding: 1rem;
+}
+ul.pacientes{
+  list-style-type: none;
+}
+.card{
+  margin: 1rem;
+}
+.editar,.eliminar{
+  margin-bottom:1em;
+}
+.eliminar{
+  color:white;
+  background-color: red;
+  border-color: red;
+}
+.eliminar:hover{
+  background-color: rgb(209, 17, 17);
+  border-color: rgb(209, 17, 17);
 }

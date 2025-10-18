@@ -31,7 +31,7 @@ const registrar=async (req,res)=>{
 const perfil=(req,res)=>{
     //console.log(req.veterinario);
     const {veterinario}=req;
-    res.json({perfil:veterinario});
+    res.json(veterinario);
 };
 
 const confirmar=async(req,res)=>{
@@ -112,7 +112,7 @@ const comprobarToken=async (req,res)=>{
 }
 
 const nuevoPassword=async (req,res)=>{
-    console.log('ireneeee');
+    
     const {token}=req.params;
     const {password}=req.body;
     const usuario=await Veterinario.findOne({token});
