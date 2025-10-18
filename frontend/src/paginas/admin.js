@@ -1,4 +1,4 @@
-import {imprimirAlerta,autenticarUsuario,formatearFecha} from '../funciones.js';
+import {imprimirAlerta,autenticarUsuario,formatearFecha,cerrarSesion} from '../funciones.js';
 
 (()=>{
     let pacienteEditado={};
@@ -24,10 +24,10 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha} from '../funciones.js';
     inputFecha.addEventListener('focusout',actualizarFechaPacienteEditado);
     inputSintomas.addEventListener('keyup',actualizarSintomasPacienteEditado);
 
-    function cerrarSesion(){
+/*    function cerrarSesion(){
         localStorage.removeItem('token');
         window.location.replace(`${import.meta.env.VITE_URL_FRONTEND}/index.html`);
-    }
+    }*/
     function validarForm(e){
         e.preventDefault();
         const nombre=inputNombre.value.trim();

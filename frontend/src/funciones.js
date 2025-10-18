@@ -28,6 +28,11 @@ export function autenticarUsuario(){
 }
 
 export const formatearFecha=(fecha)=>{
-                    const nuevaFecha=new Date(fecha);
-                    return new Intl.DateTimeFormat('es',{dateStyle:'long'}).format(nuevaFecha);
-                }
+    const nuevaFecha=new Date(fecha);
+    return new Intl.DateTimeFormat('es',{dateStyle:'long'}).format(nuevaFecha);
+}
+
+export function cerrarSesion(){
+    localStorage.removeItem('token');
+    window.location.replace(`${import.meta.env.VITE_URL_FRONTEND}/index.html`);
+}
