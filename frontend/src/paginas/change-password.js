@@ -1,23 +1,6 @@
-import {imprimirAlerta,autenticarUsuario,cerrarSesion} from '../funciones.js';
+import {imprimirAlerta} from '../funciones.js';
 
 (()=>{
-
-    const tokenLS=autenticarUsuario();
-
-    if(tokenLS){
-        const header=document.querySelector('header');
-        const nav=document.createElement('NAV');
-        nav.innerHTML=`
-            <a class="header" href="admin.html">Pacientes</a>
-            <a class="header perfil" href="perfil.html">Perfil</a>
-            <a class="header cerrar-sesion" href="#">Cerrar Sesión</a>
-        `;
-        header.appendChild(nav);
-
-        const botonCerrarSesion=document.querySelector('.cerrar-sesion');
-    
-        botonCerrarSesion.addEventListener('click',cerrarSesion);
-    }
 
     const divResul=document.querySelector('#resul');
     const formulario=document.querySelector('#form-reset');

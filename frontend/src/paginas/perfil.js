@@ -3,6 +3,7 @@ import {cerrarSesion,autenticarUsuario,imprimirAlerta} from '../funciones.js';
 (()=>{
 
     const botonCerrarSesion=document.querySelector('.cerrar-sesion');
+    const botonCambiarPassword=document.querySelector('.cambiar-pass');
     const formulario=document.querySelector('#form-veterinarios');
 
     const inputNombre=document.querySelector('#nombre');
@@ -38,6 +39,10 @@ import {cerrarSesion,autenticarUsuario,imprimirAlerta} from '../funciones.js';
         const id=_id;
 
         veterinario=data;
+        
+        botonCambiarPassword.addEventListener('click',()=>{
+        window.location.replace(`${import.meta.env.VITE_URL_FRONTEND}/reset2.html?id=${veterinario._id}`);
+    });
     })
     .catch(error => console.error('Error:', error.message));
 
