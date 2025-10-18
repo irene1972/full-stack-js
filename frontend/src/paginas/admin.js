@@ -237,6 +237,11 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha} from '../funciones.js';
 
     }
     function eliminarPaciente(e){
+        //confirmar por el usuario que realmente quiere eliminarlo
+        const confirmar=confirm('¿Confirmas que quieres eliminar el paciente?');
+        if(!confirmar) return;
+
+        //proceder a eliminar
         const id=e.target.id;
         const token = autenticarUsuario();
         

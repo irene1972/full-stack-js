@@ -139,6 +139,9 @@ div#resul{
   width: 60rem;
   
 }
+footer{
+  /*position:fixed;*/
+}
 p.footer{
   font-weight: bold;
 }
