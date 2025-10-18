@@ -32,6 +32,7 @@ body {
 
 header{
   padding: 1rem;
+  padding-top: 2rem;
   background-color: #646cff;
   color:white;
   width: 80rem;
@@ -52,13 +53,10 @@ div.header{
   justify-content: space-between;
   align-items: center;
 }
-h1.header{
-  font-size: xx-large;
-}
 h1 {
   font-size: 1.2em;
   line-height: 1.1;
-  padding-left: 1rem;
+  padding-left: 16rem;
   padding-top: 2rem;
   display: inline-block;
 }
@@ -72,6 +70,7 @@ h1 {
 .botones{
   display: block;
   place-items:center;
+  padding-top: 2rem;
 }
 .logo {
   height: 6em;
@@ -170,4 +169,8 @@ ul.pacientes{
 .eliminar:hover{
   background-color: rgb(209, 17, 17);
   border-color: rgb(209, 17, 17);
+}
+#registrar{
+  margin-left: 1rem;
+  margin-right: 1rem;
 }

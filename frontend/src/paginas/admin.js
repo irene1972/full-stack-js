@@ -1,6 +1,7 @@
-import {imprimirAlerta,autenticarUsuario} from '../funciones.js';
+import {imprimirAlerta,autenticarUsuario,formatearFecha} from '../funciones.js';
 
 (()=>{
+    let pacienteEditado={};
 
     const botonCerrarSesion=document.querySelector('.cerrar-sesion');
 
@@ -16,6 +17,12 @@ import {imprimirAlerta,autenticarUsuario} from '../funciones.js';
     botonCerrarSesion.addEventListener('click',cerrarSesion);
     formulario.addEventListener('submit',validarForm);
     document.addEventListener('DOMContentLoaded',obtenerPacientes);
+
+    inputNombre.addEventListener('keyup',actualizarNombrePacienteEditado);
+    inputPropietario.addEventListener('keyup',actualizarPropietarioPacienteEditado);
+    inputEmail.addEventListener('keyup',actualizarEmailPacienteEditado);
+    inputFecha.addEventListener('focusout',actualizarFechaPacienteEditado);
+    inputSintomas.addEventListener('keyup',actualizarSintomasPacienteEditado);
 
     function cerrarSesion(){
         localStorage.removeItem('token');
@@ -35,8 +42,20 @@ import {imprimirAlerta,autenticarUsuario} from '../funciones.js';
             imprimirAlerta('Todos los campos (excepto fecha) son obligatorios','error',formulario);
             return;
         }
+
         //guardar datos mascota
-        guardarDatosMascota(mascota);
+        if(!pacienteEditado.id){
+            guardarDatosMascota(mascota);
+            return;
+        }
+        //actualiza el objeto pacienteEditado
+        pacienteEditado.nombre=nombre;
+        pacienteEditado.propietario=propietario;
+        pacienteEditado.email=email;
+        pacienteEditado.sintomas=sintomas;
+
+        modificarDatosMascota();
+        
     }
 
     function guardarDatosMascota(mascota){
@@ -49,7 +68,7 @@ import {imprimirAlerta,autenticarUsuario} from '../funciones.js';
             fecha:mascota.fecha,
             sintomas:mascota.sintomas
         };
-        console.log(datos);
+        //console.log(datos);
         
         fetch(`${import.meta.env.VITE_URL_API}/pacientes`, {
         method: "POST",
@@ -111,12 +130,10 @@ import {imprimirAlerta,autenticarUsuario} from '../funciones.js';
             
             lista.innerHTML='';
             
+            let botonEditar='';
+
             data.forEach(paciente=>{
                 const {nombre,propietario,email,fecha,sintomas,_id}=paciente;
-                const formatearFecha=(fecha)=>{
-                    const nuevaFecha=new Date(fecha);
-                    return new Intl.DateTimeFormat('es',{dateStyle:'long'}).format(nuevaFecha);
-                }
                 
                 lista.innerHTML+=`
                                     <li class="card">
@@ -127,13 +144,113 @@ import {imprimirAlerta,autenticarUsuario} from '../funciones.js';
                                         <p>SINTOMAS: ${sintomas}</p>
                                         <button type="button" id="${_id}" class="btn btn-primary editar">Editar</button>
                                         <button type="button" id="${_id}" class="btn btn-primary eliminar">Eliminar</button>
-                                    </li>`;
+                                    </li>
+                                    `;
+                botonEditar=document.querySelector(`button.editar`);
+                botonEditar.onclick=(e)=>console.log(e.target);
+                //botonEditar.onclick=(e)=>{editarPaciente(e);}
+                
             });
             
 
         })
         .catch(error => console.error('Error:', error));
         
+    }
+
+    function editarPaciente(e){
+        
+        const id=e.target.getAttribute('id');
+        const token = autenticarUsuario();
+        
+        if(!token) return;
+        
+        fetch(`${import.meta.env.VITE_URL_API}/pacientes/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+        })
+        .then(response => response.json())
+        .then(data => {
+            //console.log(data);
+            const {nombre,propietario,email,fecha,sintomas,_id}=data;
+            
+            inputNombre.value=nombre;
+            pacienteEditado.nombre=nombre;
+            inputPropietario.value=propietario;
+            pacienteEditado.propietario=propietario;
+            inputEmail.value=email;
+            pacienteEditado.email=email;
+            //inputFecha.value=formatearFecha(Date.parse(fecha));
+            inputSintomas.value=sintomas;
+            pacienteEditado.sintomas=sintomas;
+            pacienteEditado.id=_id;
+        })
+        .catch(error => console.error('Error:', error.message));
+        
+    }
+    function modificarDatosMascota(){
+        const token = autenticarUsuario();
+        const {nombre,propietario,email,fecha,sintomas,id}=pacienteEditado;
+        const datos={
+            nombre,
+            propietario,
+            email,
+            fecha,
+            sintomas
+        };
+        console.log(`${import.meta.env.VITE_URL_API}/pacientes/${id}`);
+        console.log(pacienteEditado);
+        console.log(token);
+        
+        fetch(`${import.meta.env.VITE_URL_API}/pacientes/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+        })
+        .then(response => response.json())
+        .then(resultado => {
+            if(resultado.msg){
+                imprimirAlerta(resultado.msg,'error',formulario);
+                return;
+            }
+            imprimirAlerta('Ha sido actualizado con éxito','exito',formulario);
+            inputNombre.value='';
+            inputPropietario.value='';
+            inputEmail.value='';
+            inputFecha.value='';
+            inputSintomas.value='';
+            
+            console.log(resultado);
+
+            obtenerPacientes={};
+            
+        })
+        .catch(err => console.log(err));
+
+    }
+    function eliminarPaciente(e){
+        console.log(e.target);
+    }
+    function actualizarNombrePacienteEditado(e){
+        obtenerPacientes.nombre=e.target.value;
+    }
+    function actualizarPropietarioPacienteEditado(){
+        obtenerPacientes.propietario=e.target.value;
+    }
+    function actualizarEmailPacienteEditado(){
+        obtenerPacientes.email=e.target.value;
+    }
+    function actualizarFechaPacienteEditado(e){
+        obtenerPacientes.fecha=e.target.value;
+    }
+    function actualizarSintomasPacienteEditado(){
+        obtenerPacientes.sintomas=e.target.value;
     }
 
 })()

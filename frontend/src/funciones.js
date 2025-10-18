@@ -26,3 +26,8 @@ export function autenticarUsuario(){
     if(!token) return;
     return token;
 }
+
+export const formatearFecha=(fecha)=>{
+                    const nuevaFecha=new Date(fecha);
+                    return new Intl.DateTimeFormat('es',{dateStyle:'long'}).format(nuevaFecha);
+                }

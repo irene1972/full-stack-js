@@ -4,8 +4,9 @@ import './style.css';
 document.querySelector('#app').innerHTML = `
 <!--<div class="container-main">-->
   <header>
-    <h1><a href="index.html">Administrador de Pacientes Clínica Veterinaria</a></h1>
-    <img src="vite.svg" alt="APV logo" />
+    <div class="header">
+      <h2 class="header"><a class="header" href="index.html">Administrador de Pacientes Clínica <span class="header">Veterinaria</span></a></h2>
+    </div>
   </header>
   <div class="botones">
     <button id="login">Login</button>
