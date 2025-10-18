@@ -38,7 +38,7 @@ const actualizarPaciente=async (req,res)=>{
     const paciente=await Paciente.findById(id);
 
     if(!paciente){
-        return res.status(400).json({error:'No existe el paciente'});
+        return res.status(400).json({msg:'No existe el paciente'});
     }
     if( paciente.veterinario._id.toString() === req.veterinario._id.toString() ){
         //actualizar paciente

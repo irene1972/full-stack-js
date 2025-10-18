@@ -130,6 +130,39 @@ const nuevoPassword=async (req,res)=>{
     }
 }
 
+const actualizarPerfil=async (req,res)=>{
+    const id=req.params.id;
+    const veterinario=await Veterinario.findById(id);
+
+    if(!veterinario){
+        return res.status(400).json({msg:'No existe el usuario'});
+    }
+    //validamos que el usuario no pretenda cambiar el email por el de otro usuario
+    const {email}=req.body;
+    if(veterinario.email !== email){
+        const existeEmail=await Veterinario.findOne({email});
+        if(existeEmail){
+            const error=new Error('Ese email ya está registrado');
+            return res.status(400).json({msg:error.message});
+        }
+    }
+
+    try {
+        //actualizar veterinario
+        veterinario.nombre=req.body.nombre;
+        veterinario.telefono=req.body.telefono;
+        veterinario.email=req.body.email;
+        veterinario.web=req.body.web;
+
+        const veterinarioActualizado=await veterinario.save();
+        res.json(veterinarioActualizado);
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({msg:'No se pudo actualizar'});
+    }
+}
+
 export {
     registrar,
     perfil,
@@ -137,5 +170,6 @@ export {
     autenticar,
     resetPassword,
     comprobarToken,
-    nuevoPassword
+    nuevoPassword,
+    actualizarPerfil
 }

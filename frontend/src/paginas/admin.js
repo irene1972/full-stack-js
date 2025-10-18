@@ -230,7 +230,7 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha,cerrarSesion} from '../f
             
             //console.log(resultado);
 
-            obtenerPacientes={};
+            pacienteEditado={};
             
         })
         .catch(err => console.log(err));
@@ -265,7 +265,7 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha,cerrarSesion} from '../f
             inputFecha.value='';
             inputSintomas.value='';
 
-            obtenerPacientes={};
+            pacienteEditado={};
 
             setTimeout(()=>{
                 window.location.replace(`${import.meta.env.VITE_URL_FRONTEND}/admin.html`);
@@ -276,19 +276,19 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha,cerrarSesion} from '../f
         .catch(err => console.log(err));
     }
     function actualizarNombrePacienteEditado(e){
-        obtenerPacientes.nombre=e.target.value;
+        pacienteEditado.nombre=e.target.value;
     }
     function actualizarPropietarioPacienteEditado(){
-        obtenerPacientes.propietario=e.target.value;
+        pacienteEditado.propietario=e.target.value;
     }
     function actualizarEmailPacienteEditado(){
-        obtenerPacientes.email=e.target.value;
+        pacienteEditado.email=e.target.value;
     }
     function actualizarFechaPacienteEditado(e){
-        obtenerPacientes.fecha=e.target.value;
+        pacienteEditado.fecha=e.target.value;
     }
     function actualizarSintomasPacienteEditado(){
-        obtenerPacientes.sintomas=e.target.value;
+        pacienteEditado.sintomas=e.target.value;
     }
 
 })()
