@@ -2,7 +2,6 @@ import './style.css';
 
 (()=>{
 document.querySelector('#app').innerHTML = `
-<!--<div class="container-main">-->
   <header>
     <div class="header">
       <h2 class="header"><a class="header" href="index.html">Administrador de Pacientes Clínica <span class="header">Veterinaria</span></a></h2>
@@ -14,6 +13,5 @@ document.querySelector('#app').innerHTML = `
     <button id="reset-password">Reset Password</button>
   </div>
   <div id="resul"></div>
-<!--</div>-->
 `;
 })()

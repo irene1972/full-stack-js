@@ -91,6 +91,7 @@ function registrar(form){
         inputTelefono.value='';
         inputWeb.value='';
         inputPassword.value='';
+        inputRepitaPassword.value='';
         console.log(resultado);
         
     })
