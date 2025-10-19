@@ -20,34 +20,36 @@
         </nav>
       </div>
     </header>
-    <h1>Perfil Veterinario</h1>
-    <div class="container-flex">
-          <div class="formulario">
-            <form id="form-veterinarios">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Nombre del veterinario">
-                </div>
-                <div class="mb-3">
-                    <label for="web" class="form-label">Sitio Web</label>
-                    <input type="text" class="form-control" id="web" placeholder="Sitio web del veterinario">
-                </div>
-                <div class="mb-3">
-                    <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono del veterinario">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email del propietario">
-                    <div id="emailHelp" class="form-text">Nosotros nunca compartiremos tu email con nadie</div>
-                </div>
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                <button type="button" class="btn btn-secondary cambiar-pass">Cambiar Password</button>
-            </form>
-        </div>
+    <div class="cuerpo">
+      <div class="container-flex">
+            <div class="formulario">
+              <h1>Perfil Veterinario</h1>
+              <form id="form-veterinarios">
+                  <div class="mb-3">
+                      <label for="nombre" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" id="nombre" placeholder="Nombre del veterinario">
+                  </div>
+                  <div class="mb-3">
+                      <label for="web" class="form-label">Sitio Web</label>
+                      <input type="text" class="form-control" id="web" placeholder="Sitio web del veterinario">
+                  </div>
+                  <div class="mb-3">
+                      <label for="telefono" class="form-label">Teléfono</label>
+                      <input type="text" class="form-control" id="telefono" placeholder="Teléfono del veterinario">
+                  </div>
+                  <div class="mb-3">
+                      <label for="email" class="form-label">Email address</label>
+                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email del propietario">
+                      <div id="emailHelp" class="form-text">Nosotros nunca compartiremos tu email con nadie</div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                  <button type="button" class="btn btn-secondary cambiar-pass">Cambiar Password</button>
+              </form>
+          </div>
+      </div>
+      <div id="resul"></div>
+      <footer><p class="footer">APV - Administrador de Pacientes de <span class="footer">Veterinaria</span></p></footer>
     </div>
-    <div id="resul"></div>
-    <footer><p class="footer">APV - Administrador de Pacientes de <span class="footer">Veterinaria</span></p></footer>
     <script type="module" src="/src/paginas/perfil.js"></script>
   </body>
 </html>
