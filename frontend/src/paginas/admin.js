@@ -150,10 +150,24 @@ import {imprimirAlerta,autenticarUsuario,formatearFecha,cerrarSesion} from '../f
                                         <button type="button" id="${_id}" class="btn btn-primary eliminar">Eliminar</button>
                                     </li>
                                     `;
-                botonEditar=document.querySelector(`button.editar`);
-                botonEditar.onclick=(e)=>{editarPaciente(e);}
-                botonEliminar=document.querySelector(`button.eliminar`);
-                botonEliminar.onclick=(e)=>{eliminarPaciente(e);}
+                //botonEditar=document.querySelector(`button.editar`);
+                //botonEditar.onclick=(e)=>{editarPaciente(e);}
+                //botonEliminar=document.querySelector(`button.eliminar`);
+                //botonEliminar.onclick=(e)=>{eliminarPaciente(e);}
+
+                for (let botonEditar of document.querySelectorAll('button.editar')) {
+                    // here i add the the event Listener to the button 
+                    botonEditar.addEventListener('click', (e) => {
+                        editarPaciente(e);
+                    });
+                }
+
+                for (let botonEliminar of document.querySelectorAll('button.eliminar')) {
+                    // here i add the the event Listener to the button 
+                    botonEliminar.addEventListener('click', (e) => {
+                        eliminarPaciente(e);
+                    });
+                }
                 
             });
             
