@@ -24,10 +24,7 @@ a:hover {
 
 body {
   margin: 0;
-  /*display: flex;*/
   place-items:initial;
-  /*min-width: 320px;
-  min-height: 100vh;*/
 }
 
 header{
@@ -35,7 +32,6 @@ header{
   padding-top: 2rem;
   background-color: #646cff;
   color:white;
-  /*width: 80rem;*/
   height: 7rem;
   display: flex;
   justify-content: space-between;
